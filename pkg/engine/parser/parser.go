@@ -67,15 +67,11 @@ func NewResponseParser() *Parser {
 		{bodyParser, bodyMetaContentTagParser},
 		{bodyParser, bodyHtmlManifestTagParser},
 		{bodyParser, bodyHtmlDoctypeTagParser},
-		{bodyParser, bodyHtmxAttrParser},
+				{bodyParser, customFieldRegexParser},
 
-		// custom field regex parser
-		{bodyParser, customFieldRegexParser},
-	}
-}
-
-// parseResponse runs the response parsers on the navigation response
+// ParseResponse runs the response parsers on a navigation response
 func (p *Parser) ParseResponse(resp *navigation.Response) (navigationRequests []*navigation.Request) {
+	
 	for _, parser := range *p {
 		switch {
 		case parser.parserType == headerParser && resp.Resp != nil:
